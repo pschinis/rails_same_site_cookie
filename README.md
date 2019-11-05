@@ -1,8 +1,12 @@
 # RailsSameSiteCookie
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rails_same_site_cookie`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem sets the SameSite=None directive on all cookies coming from your Rails app that are missing the SameSite directive. This behavior can also be limited to only requests coming from a specific user agent.
 
-TODO: Delete this and the text above, and describe your gem
+This is useful because in February 2020 Chrome will start treating any cookies without the SameSite directive set as though they are SameSite=Lax(https://www.chromestatus.com/feature/5088147346030592). This is a breaking change from the previous default behavior which was to treat those cookies as SameSite=None. See [this explanation](https://web.dev/samesite-cookies-explained/) for more information on the SameSite directive and the reasons for this change.
+
+This new behavior shouldn't be a problem for most apps but if your Rails app provides an API that uses cookies for authentication (which itself may or may not be ill-advised), the new behavior means cookie authenticated requests to your API from third-party domains will no longer work in Chrome. In addition, fixing the problem isn't as simple as just setting SameSite=None on your app's cookies because there are a number of user agents that will either (a) ignore cookies with SameSite=None or (b) treat SameSite=None as SameSite=Strict. In other words, if a cookie-authenticated API sets SameSite=None it will break for some users, and if it doesn't set SameSite=None, it will also break for many users.
+
+This gem fixes the above problems by explicity setting SameSite=None for all cookies where the SameSite directive is missing and the requesting user agent is not in Chrome's [provided list of known incompatible clients](https://www.chromium.org/updates/same-site/incompatible-clients).
 
 ## Installation
 
@@ -22,7 +26,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Once you've installed the gem that's basically it unless you want to limit the SameSite=None behavior to specific user agents. This can be useful, for example, if you have a cordova app (or other client) that accesses your API using a custom user agent string and you know in those situations that the cookie will not be accessible to third party sites because the containing browser will never be allowed to navigate to other domains.
+
+To set this up:
+```ruby
+#config/initializers/rails_same_site_cookie.rb
+RailsSameSiteCookie.configuration do |config|
+  config.user_agent_regex = /MyCustomUserAgentString/
+end
+```
+
+Now only user agents that support SameSite=None and match the given regex string will have the directive set.
 
 ## Development
 
