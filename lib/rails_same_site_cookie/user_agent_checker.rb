@@ -41,7 +41,7 @@ module RailsSameSiteCookie
     end
 
     def is_safari?
-      /Safari/.match?(user_agent.family)
+      /Safari/.match(user_agent.family)
     end
 
     def is_buggy_chrome?
@@ -53,7 +53,7 @@ module RailsSameSiteCookie
     end
 
     def is_chromium_based?
-      /Chrom(e|ium)/.match?(@user_agent_str)
+      /Chrom(e|ium)/.match(@user_agent_str)
     end
 
     def is_chromium_version_between?(range)
