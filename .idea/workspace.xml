@@ -2,30 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e0e9314-6ae0-4b09-b5fc-2409f43cc399" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.rspec" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.travis.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CODE_OF_CONDUCT.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Rakefile" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/console" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/setup" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/rails_same_site_cookie.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/rails_same_site_cookie/configuration.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/rails_same_site_cookie/middleware.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/rails_same_site_cookie/railtie.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/rails_same_site_cookie/user_agent_checker.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/rails_same_site_cookie/version.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rails_same_site_cookie.gemspec" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/configuration_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/middleware_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/mock_rack_app.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/rails_same_site_cookie_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/spec_helper.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/user_agent_checker_spec.rb" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/rails_same_site_cookie.iml" afterPath="$PROJECT_DIR$/.idea/rails_same_site_cookie.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rails_same_site_cookie.gemspec" afterPath="$PROJECT_DIR$/rails_same_site_cookie.gemspec" />
     </list>
     <ignored path="rails_same_site_cookie.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="rails_same_site_cookie.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/rails_same_site_cookie.rb">
+      <file leaf-file-name="rails_same_site_cookie.gemspec" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rails_same_site_cookie.gemspec">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+            <state relative-caret-position="579">
+              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -102,8 +82,8 @@
       <file leaf-file-name="Gemfile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gemfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="116">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,7 +119,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="middleware_spec.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="middleware_spec.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spec/middleware_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="957">
@@ -160,7 +140,6 @@
         <option value="$PROJECT_DIR$/../strongr-fastr-test/lib/middleware/secure_cookies.rb" />
         <option value="$PROJECT_DIR$/lib/rails_same_site_cookie/railtie.rb" />
         <option value="$PROJECT_DIR$/lib/rails_same_site_cookie.rb" />
-        <option value="$PROJECT_DIR$/rails_same_site_cookie.gemspec" />
         <option value="$PROJECT_DIR$/spec/spec_helper.rb" />
         <option value="$PROJECT_DIR$/spec/mock_rack_app.rb" />
         <option value="$PROJECT_DIR$/spec/middleware_spec.rb" />
@@ -170,6 +149,7 @@
         <option value="$PROJECT_DIR$/lib/rails_same_site_cookie/middleware.rb" />
         <option value="$PROJECT_DIR$/lib/rails_same_site_cookie/user_agent_checker.rb" />
         <option value="$PROJECT_DIR$/spec/user_agent_checker_spec.rb" />
+        <option value="$PROJECT_DIR$/rails_same_site_cookie.gemspec" />
       </list>
     </option>
   </component>
@@ -463,7 +443,7 @@
       <option name="presentableId" value="Default" />
       <updated>1572897528455</updated>
       <workItem from="1572897529632" duration="1115000" />
-      <workItem from="1572907546555" duration="16067000" />
+      <workItem from="1572907546555" duration="16574000" />
     </task>
     <servers />
   </component>
@@ -485,7 +465,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17182000" />
+    <option name="totallyTimeSpent" value="17689000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="134" y="35" width="3706" height="2125" extended-state="6" />
@@ -599,14 +579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rails_same_site_cookie.gemspec">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/rack-2.0.7/lib/rack/request.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
@@ -655,14 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gemfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/spec/rails_same_site_cookie_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
@@ -707,6 +671,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="957">
           <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile.lock">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rails_same_site_cookie.gemspec">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
           <folding />
         </state>
       </provider>
