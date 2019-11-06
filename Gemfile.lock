@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    rails_same_site_cookie (0.1.0)
+    rails_same_site_cookie (0.1.1)
       rails (>= 4.1)
-      user_agent_parser
+      user_agent_parser (~> 2.5)
 
 GEM
   remote: https://rubygems.org/
@@ -135,7 +135,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
+  bundler (>= 1.17)
   rails_same_site_cookie!
   rake (~> 10.0)
   rspec (~> 3.0)
