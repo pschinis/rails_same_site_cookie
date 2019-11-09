@@ -8,6 +8,9 @@ This new behavior shouldn't be a problem for most apps but if your Rails app pro
 
 This gem fixes the above problems by explicity setting SameSite=None for all cookies where the SameSite directive is missing and the requesting user agent is not in Chrome's [provided list of known incompatible clients](https://www.chromium.org/updates/same-site/incompatible-clients).
 
+## Note about HTTP requests and local testing
+Note that the gem only sets the "Secure" flag (which Chrome will also require for SameSite=None cookies) on cookies sent over HTTPS. So if you're testing on your local machine and you haven't setup your localhost to use SSL you will see warnings in Chrome about the cookies lacking the Secure flag. If the gem did set this flag in these cases, you would not see the warning and instead the cookies would simply be ignored. Once Chrome 80 is released you will either have to setup SSL on your localhost or start using a different browser for development, because Chrome will begin ignoring these cookies for lacking the Secure flag.
+
 ## Installation
 
 Add this line to your application's Gemfile:
