@@ -34,7 +34,7 @@ Once you've installed the gem that's basically it unless you want to limit the S
 To set this up:
 ```ruby
 #config/initializers/rails_same_site_cookie.rb
-RailsSameSiteCookie.configuration do |config|
+RailsSameSiteCookie.configure do |config|
   config.user_agent_regex = /MyCustomUserAgentString/
 end
 ```
