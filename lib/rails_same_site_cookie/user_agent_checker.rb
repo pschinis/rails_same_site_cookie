@@ -2,16 +2,18 @@ require 'user_agent_parser'
 
 module RailsSameSiteCookie
   class UserAgentChecker
+    PARSER = UserAgentParser::Parser.new
+
     attr_reader :user_agent
 
     def user_agent=(user_agent)
       @user_agent_str = user_agent
-      @user_agent = user_agent ? UserAgentParser.parse(user_agent) : nil
+      @user_agent = user_agent ? PARSER.parse(user_agent) : nil
     end
 
     def initialize(user_agent=nil)
       @user_agent_str = user_agent
-      @user_agent = UserAgentParser.parse(user_agent) if user_agent
+      @user_agent = PARSER.parse(user_agent) if user_agent
     end
 
     def send_same_site_none?
