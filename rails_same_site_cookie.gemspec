@@ -28,6 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
 
-  spec.add_dependency "rails", ">= 4.1"
+  spec.add_dependency "railties", ">= 4.1"
   spec.add_dependency "user_agent_parser", "~> 2.5"
 end
