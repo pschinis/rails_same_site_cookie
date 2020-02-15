@@ -4,7 +4,7 @@ RSpec.describe RailsSameSiteCookie do
   end
 
   it "responds to config" do
-    RailsSameSiteCookie.configuration do |config|
+    RailsSameSiteCookie.configure do |config|
       expect(config.is_a?(RailsSameSiteCookie::Configuration)).to be(true)
       expect(config).to respond_to(:user_agent_regex)
       expect(config).to respond_to("user_agent_regex=")
