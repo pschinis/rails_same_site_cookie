@@ -8,6 +8,7 @@ module RailsSameSiteCookie
     def initialize
       @user_agent_regex = nil
       @default_value = 'None'
+      @default_override = false
     end
 
     def default_value=(raw_value)
@@ -16,5 +17,13 @@ module RailsSameSiteCookie
       @default_value = value
     end
 
+    def default_override=(boolean)
+      raise ArgumentError, 'not boolean' unless [true, false].include?(boolean)
+      @default_override = boolean
+    end
+
+    def allow_override?
+      @default_override
+    end
   end
 end

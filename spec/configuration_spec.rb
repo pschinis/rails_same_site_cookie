@@ -31,4 +31,25 @@ RSpec.describe RailsSameSiteCookie::Configuration do
       it { expect { config.default_value = 'xxxx' }.to raise_error(ArgumentError) }
     end
   end
+
+  describe "default_override" do
+    subject { config.instance_variable_get(:@default_override) }
+
+    context "if not set" do
+      it { is_expected.to be(false) }
+    end
+
+    context "if set true" do
+      before { config.default_override = true }
+      it { is_expected.to be(true) }
+    end
+
+    context "if set 'xxxx' (not boolean)" do
+      it { expect { config.default_override = 'xxxx' }.to raise_error(ArgumentError) }
+    end
+
+    context "if set nil" do
+      it { expect { config.default_override = nil }.to raise_error(ArgumentError) }
+    end
+  end
 end

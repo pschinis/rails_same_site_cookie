@@ -85,4 +85,33 @@ RSpec.describe RailsSameSiteCookie::Middleware do
     end
   end
 
+  describe "config.default_override" do
+    subject { request.post("/some/path")['Set-Cookie'] }
+
+    let(:app) { MockRackApp.new.tap {|a| a.cookie = "cookie1=thisvalue1; SameSite=None" } }
+    before(:each) do
+      RailsSameSiteCookie.configure do |config|
+        config.default_value = 'Lax'
+      end
+    end
+
+    context "if not set (initial='false')" do
+      it "not change SameSite attribute to cookies" do
+        expect( subject ).to match(/;\s*samesite=none/i)
+      end
+    end
+
+    context "if set true" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.default_override = true
+        end
+      end
+
+      it "change SameSite attribute to cookies" do
+        expect( subject ).to match(/;\s*samesite=lax/i)
+      end
+    end
+  end
+
 end
