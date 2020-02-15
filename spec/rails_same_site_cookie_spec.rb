@@ -8,6 +8,8 @@ RSpec.describe RailsSameSiteCookie do
       expect(config.is_a?(RailsSameSiteCookie::Configuration)).to be(true)
       expect(config).to respond_to(:user_agent_regex)
       expect(config).to respond_to("user_agent_regex=")
+      expect(config).to respond_to(:default_value)
+      expect(config).to respond_to("default_value=")
     end
   end
 end

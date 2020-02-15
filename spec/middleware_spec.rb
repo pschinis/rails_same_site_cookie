@@ -1,39 +1,88 @@
 RSpec.describe RailsSameSiteCookie::Middleware do
-  let(:app) { MockRackApp.new }
-  subject { described_class.new(app) }
+  let(:middleware) { described_class.new(app) }
+  let(:request) { Rack::MockRequest.new(middleware) }
+  before(:each) do
+    RailsSameSiteCookie.configuration = RailsSameSiteCookie::Configuration.new
+  end
 
-  context "when configured with a regex" do
-    let(:request) { Rack::MockRequest.new(subject) }
-    before(:each) do
-      RailsSameSiteCookie.configure do |config|
-        config.user_agent_regex = /StrongrFastrApp/
+  describe "config.user_agent_regex" do
+    subject { request.post("/some/path", 'HTTP_USER_AGENT' => user_agent)['Set-Cookie'] }
+
+    let(:app) { MockRackApp.new }
+
+    context "if set regex" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.user_agent_regex = /StrongrFastrApp/
+        end
+      end
+
+      context "UA matches regex" do
+        let(:user_agent) { 'StrongrFastrApp' }
+
+        it "adds SameSite=None to cookies" do
+          expect( subject ).to match(/;\s*samesite=none/i)
+        end
+      end
+
+      context "UA unmatches regex" do
+        let(:user_agent) { 'OtherApp' }
+
+        it "doesn't add SameSite=None" do
+          expect( subject ).not_to match(/;\s*samesite=none/i)
+        end
       end
     end
 
-    it "adds SameSite=None to cookies for requests whose UA matches regex" do
-      response = request.post("/some/path", 'HTTP_USER_AGENT' => 'StrongrFastrApp')
-      expect(response['Set-Cookie']).to match(/;\s*samesite=none/i)
-    end
+    context "if not set" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.user_agent_regex = nil
+        end
+      end
+      let(:user_agent) { '' }
 
-    it "doesn't add SameSite=None if request is missing regex" do
-      response = request.post("/some/path")
-      expect(response['Set-Cookie']).not_to match(/;\s*samesite=none/i)
+      it "adds SameSite=None to cookies" do
+        expect( subject ).to match(/;\s*samesite=none/i)
+      end
     end
   end
 
-  context "when configured without a regex" do
-    let(:request) { Rack::MockRequest.new(subject) }
-    before(:each) do
-      RailsSameSiteCookie.configure do |config|
-        config.user_agent_regex = nil
+  describe "config.default_value" do
+    subject { request.post("/some/path")['Set-Cookie'] }
+
+    let(:app) { MockRackApp.new }
+
+    context "if not set (initial='None')" do
+      it "adds SameSite=None to cookies" do
+        expect( subject ).to match(/;\s*samesite=none/i)
       end
     end
 
-    it "adds SameSite=None to cookies for all requests" do
-      response = request.post("/some/path", 'HTTP_USER_AGENT' => '')
-      expect(response['Set-Cookie']).to match(/;\s*samesite=none/i)
+    context "if set 'Lax'" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.default_value = 'Lax'
+        end
+      end
+
+      it "adds SameSite=Lax to cookies" do
+        expect( subject ).to match(/;\s*samesite=lax/i)
+      end
     end
 
+    context "if set 'Strict'" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.default_value = 'Strict'
+        end
+      end
+
+      it "adds SameSite=Strict to cookies" do
+        response = request.post("/some/path")
+        expect(response['Set-Cookie']).to match(/;\s*samesite=strict/i)
+      end
+    end
   end
 
 end

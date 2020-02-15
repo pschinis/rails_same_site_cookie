@@ -21,14 +21,13 @@ module RailsSameSiteCookie
 
           cookies.each do |cookie|
             next if cookie.blank?
-            if ssl and not cookie =~ /;\s*secure/i
+            value = RailsSameSiteCookie.configuration.default_value
+            unless cookie =~ /;\s*samesite=/i
+              cookie << "; SameSite=#{value}"
+            end
+            if value == 'None' && ssl && cookie !~ /;\s*secure/i
               cookie << '; Secure'
             end
-
-            unless cookie =~ /;\s*samesite=/i
-              cookie << '; SameSite=None'
-            end
-
           end
 
           headers['Set-Cookie'] = cookies.join(COOKIE_SEPARATOR)
