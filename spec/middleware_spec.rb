@@ -114,4 +114,75 @@ RSpec.describe RailsSameSiteCookie::Middleware do
     end
   end
 
+  describe "config.individual_settings" do
+    subject { request.post("/some/path")['Set-Cookie'].split("\n") }
+
+    let(:app) { MockRackApp.new.tap {|a| a.cookie = "cookie1=value1\ncookie2=value2; SameSite=Lax" } }
+    before(:each) do
+      RailsSameSiteCookie.configure do |config|
+        config.default_value = 'None'
+        config.default_override = false
+      end
+    end
+
+    context "if not set" do
+      it "change SameSite attribute to cookie1 only" do
+        expect( subject[0].match(/;\s*samesite=none/i) ).to be_truthy
+        expect( subject[1].match(/;\s*samesite=lax/i) ).to be_truthy
+      end
+    end
+
+    context "if set cookie1 and cookie2 by array" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.individual_settings = ['cookie1', 'cookie2']
+        end
+      end
+
+      it "change SameSite attribute to cookie1 only" do
+        expect( subject[0].match(/;\s*samesite=none/i) ).to be_truthy
+        expect( subject[1].match(/;\s*samesite=lax/i) ).to be_truthy
+      end
+    end
+
+    context "if set cookie1 and cookie2 by hash" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.individual_settings = {cookie1: {}, cookie2: {}}
+        end
+      end
+
+      it "change SameSite attribute to cookie1 only" do
+        expect( subject[0].match(/;\s*samesite=none/i) ).to be_truthy
+        expect( subject[1].match(/;\s*samesite=lax/i) ).to be_truthy
+      end
+    end
+
+    context "if set cookie1 and cookie2 by hash with override option (true)" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.individual_settings = {cookie1: {override: true}, cookie2: {override: true}}
+        end
+      end
+
+      it "change SameSite attribute ('None') to all cookies" do
+        expect( subject[0].match(/;\s*samesite=none/i) ).to be_truthy
+        expect( subject[1].match(/;\s*samesite=none/i) ).to be_truthy
+      end
+    end
+
+    context "if set cookie1 and cookie2 by hash with value option ('Strict')" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.individual_settings = {cookie1: {value: :strict}, cookie2: {value: :strict}}
+        end
+      end
+
+      it "change SameSite attribute ('Strict') to cookie1 only" do
+        expect( subject[0].match(/;\s*samesite=strict/i) ).to be_truthy
+        expect( subject[1].match(/;\s*samesite=lax/i) ).to be_truthy
+      end
+    end
+  end
+
 end

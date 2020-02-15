@@ -21,9 +21,10 @@ module RailsSameSiteCookie
 
           cookies.each do |cookie|
             next if cookie.blank?
-            if RailsSameSiteCookie.configuration.allow_override? || cookie !~ /;\s*samesite=/i
+            name = cookie.split('=', 2)[0]
+            if RailsSameSiteCookie.configuration.allow_override?(name) || cookie !~ /;\s*samesite=/i
               cookie.sub!(/;\s*samesite=[^;\s]+/i, '')
-              value = RailsSameSiteCookie.configuration.default_value
+              value = RailsSameSiteCookie.configuration.value(name)
               cookie << "; SameSite=#{value}"
               if value == 'None' && ssl && cookie !~ /;\s*secure/i
                 cookie << '; Secure'
