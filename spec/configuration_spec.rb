@@ -53,6 +53,27 @@ RSpec.describe RailsSameSiteCookie::Configuration do
     end
   end
 
+  describe "modify_target_all_cookies" do
+    subject { config.instance_variable_get(:@modify_target_all_cookies) }
+
+    context "if not set" do
+      it { is_expected.to be(true) }
+    end
+
+    context "if set false" do
+      before { config.modify_target_all_cookies = false }
+      it { is_expected.to be(false) }
+    end
+
+    context "if set 'false' (not boolean)" do
+      it { expect { config.modify_target_all_cookies = 'false' }.to raise_error(ArgumentError) }
+    end
+
+    context "if set nil" do
+      it { expect { config.modify_target_all_cookies = nil }.to raise_error(ArgumentError) }
+    end
+  end
+
   describe "individual_settings" do
     subject { config.instance_variable_get(:@individual_settings) }
 

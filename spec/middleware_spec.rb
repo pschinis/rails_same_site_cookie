@@ -114,6 +114,35 @@ RSpec.describe RailsSameSiteCookie::Middleware do
     end
   end
 
+  describe "config.modify_target_all_cookies" do
+    subject { request.post("/some/path")['Set-Cookie'] }
+
+    let(:app) { MockRackApp.new }
+    before(:each) do
+      RailsSameSiteCookie.configure do |config|
+        config.default_value = 'None'
+      end
+    end
+
+    context "if not set (initial=true)" do
+      it "adds SameSite=None to cookies" do
+        expect( subject ).to match(/;\s*samesite=none/i)
+      end
+    end
+
+    context "if set false" do
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.modify_target_all_cookies = false
+        end
+      end
+
+      it "doesn't add SameSite=None" do
+        expect( subject ).not_to match(/;\s*samesite=none/i)
+      end
+    end
+  end
+
   describe "config.individual_settings" do
     subject { request.post("/some/path")['Set-Cookie'].split("\n") }
 
@@ -122,12 +151,13 @@ RSpec.describe RailsSameSiteCookie::Middleware do
       RailsSameSiteCookie.configure do |config|
         config.default_value = 'None'
         config.default_override = false
+        config.modify_target_all_cookies = false
       end
     end
 
     context "if not set" do
-      it "change SameSite attribute to cookie1 only" do
-        expect( subject[0].match(/;\s*samesite=none/i) ).to be_truthy
+      it "not change SameSite attribute to cookies" do
+        expect( subject[0].match(/;\s*samesite=/i) ).to be_falsey
         expect( subject[1].match(/;\s*samesite=lax/i) ).to be_truthy
       end
     end

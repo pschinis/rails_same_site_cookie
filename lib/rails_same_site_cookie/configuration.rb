@@ -8,6 +8,7 @@ module RailsSameSiteCookie
       @user_agent_regex = nil
       @default_value = 'None'
       @default_override = false
+      @modify_target_all_cookies = true
       @individual_settings = {}
     end
 
@@ -20,6 +21,11 @@ module RailsSameSiteCookie
     def default_override=(boolean)
       raise ArgumentError, 'not boolean' unless [true, false].include?(boolean)
       @default_override = boolean
+    end
+
+    def modify_target_all_cookies=(boolean)
+      raise ArgumentError, 'not boolean' unless [true, false].include?(boolean)
+      @modify_target_all_cookies = boolean
     end
 
     def individual_settings=(settings)
@@ -38,6 +44,10 @@ module RailsSameSiteCookie
           end
         end
       end
+    end
+
+    def modify_target?(cookie_name)
+      @modify_target_all_cookies || @individual_settings.key?(cookie_name)
     end
 
     def value(cookie_name)

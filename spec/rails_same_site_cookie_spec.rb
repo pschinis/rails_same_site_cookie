@@ -10,7 +10,9 @@ RSpec.describe RailsSameSiteCookie do
       expect(config).to respond_to("user_agent_regex=")
       expect(config).to respond_to("default_value=")
       expect(config).to respond_to("default_override=")
+      expect(config).to respond_to("modify_target_all_cookies=")
       expect(config).to respond_to("individual_settings=")
+      expect(config).to respond_to(:modify_target?)
       expect(config).to respond_to(:value)
       expect(config).to respond_to(:allow_override?)
     end
