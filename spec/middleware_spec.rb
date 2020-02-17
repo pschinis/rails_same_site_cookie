@@ -29,6 +29,30 @@ RSpec.describe RailsSameSiteCookie::Middleware do
       end
     end
 
+    context "when configured with user filter" do
+
+      before(:each) do
+        RailsSameSiteCookie.configure do |config|
+          config.user_agent_regex = nil
+          config.user_filter = lambda { |env| !env['IS-MOBILE-APPLICATION'].present? }
+        end
+      end
+
+      context "when user filter returns true" do
+        it "adds SameSite=None to cookies for all requests" do
+          response = request.post("/some/path", 'HTTP_USER_AGENT' => '', 'IS-MOBILE-APPLICATION' => false)
+          expect(response['Set-Cookie']).to match(/;\s*samesite=none/i)
+        end
+      end
+
+      context "when user filter returns false" do
+        it "doesn't add SameSite=None if request is missing regex" do
+          response = request.post("/some/path", 'HTTP_USER_AGENT' => '', 'IS-MOBILE-APPLICATION' => true)
+          expect(response['Set-Cookie']).not_to match(/;\s*samesite=none/i)
+        end
+      end
+    end
+
     it "adds SameSite=None to cookies for all requests" do
       response = request.post("/some/path", 'HTTP_USER_AGENT' => '')
       expect(response['Set-Cookie']).to match(/;\s*samesite=none/i)
