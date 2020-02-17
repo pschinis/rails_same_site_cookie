@@ -12,8 +12,7 @@ module RailsSameSiteCookie
     def call(env)
       status, headers, body = @app.call(env)
 
-      regex = RailsSameSiteCookie.configuration.user_agent_regex
-      if headers['Set-Cookie'].present? and (regex.nil? or regex.match(env['HTTP_USER_AGENT']))
+      if should_intercept?(env, headers)
         parser = UserAgentChecker.new(env['HTTP_USER_AGENT'])
         if parser.send_same_site_none?
           cookies = headers['Set-Cookie'].split(COOKIE_SEPARATOR)
@@ -36,6 +35,17 @@ module RailsSameSiteCookie
       end
 
       [status, headers, body]
+    end
+
+    private
+
+    def should_intercept?(env, headers)
+      regex = RailsSameSiteCookie.configuration.user_agent_regex
+      user_filter = RailsSameSiteCookie.configuration.user_filter
+      result = headers['Set-Cookie'].present? && (regex.nil? || regex.match(env['HTTP_USER_AGENT']))
+
+      return result unless user_filter.respond_to?(:call)
+      result && user_filter.call(env)
     end
 
   end
