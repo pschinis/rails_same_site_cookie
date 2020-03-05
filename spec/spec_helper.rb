@@ -2,7 +2,7 @@ require "bundler/setup"
 require "rails_same_site_cookie"
 require "mock_rack_app"
 require 'rails_same_site_cookie/middleware'
-require 'rails'
+require 'rack'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
