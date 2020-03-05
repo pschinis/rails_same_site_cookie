@@ -17,7 +17,7 @@ module RailsSameSiteCookie
       if (regex.nil? or regex.match(env['HTTP_USER_AGENT'])) and not (set_cookie.nil? or set_cookie.strip == '')
         parser = UserAgentChecker.new(env['HTTP_USER_AGENT'])
         if parser.send_same_site_none?
-          cookies = headers['Set-Cookie'].split(COOKIE_SEPARATOR)
+          cookies = set_cookie.split(COOKIE_SEPARATOR)
           ssl = Rack::Request.new(env).ssl?
 
           cookies.each do |cookie|
