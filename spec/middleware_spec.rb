@@ -33,7 +33,38 @@ RSpec.describe RailsSameSiteCookie::Middleware do
       response = request.post("/some/path", 'HTTP_USER_AGENT' => '')
       expect(response['Set-Cookie']).to match(/;\s*samesite=none/i)
     end
+  end
 
+  context "when configured to generate legacy cookie" do
+    let(:request) { Rack::MockRequest.new(subject) }
+    before(:each) do
+      RailsSameSiteCookie.configure do |config|
+        config.generate_legacy_cookie = true
+      end
+    end
+
+    context "when configured without same site support user agent" do
+      let(:response) { request.post("/some/path", 'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15') }
+      it "adds legacy cookies for all requests" do
+        expect(response['Set-Cookie']).to match(/;\s*thiscookie-legacy=/i)
+      end
+
+      it "does not add SameSite=None to cookies for all requests" do
+        expect(response['Set-Cookie']).to_not match(/;\s*samesite=none/i)
+      end
+    end
+
+    context "when configured with same site support user agent" do
+      it "adds legacy cookies for all requests" do
+        response = request.post("/some/path", 'HTTP_USER_AGENT' => '')
+        expect(response['Set-Cookie']).to match(/\s*thiscookie-legacy=/i)
+      end
+
+      it "adds SameSite=None to cookies for all requests" do
+        response = request.post("/some/path", 'HTTP_USER_AGENT' => '')
+        expect(response['Set-Cookie']).to match(/;\s*samesite=none/i)
+      end
+    end
   end
 
 end
