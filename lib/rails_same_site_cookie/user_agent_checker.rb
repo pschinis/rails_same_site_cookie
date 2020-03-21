@@ -21,6 +21,10 @@ module RailsSameSiteCookie
       return !missing_same_site_none_support?
     end
 
+    def chrome?
+      is_chromium_based?
+    end
+
     private
     def missing_same_site_none_support?
       has_webkit_ss_bug? or drops_unrecognized_ss_cookies?
