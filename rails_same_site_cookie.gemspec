@@ -5,15 +5,15 @@ require "rails_same_site_cookie/version"
 Gem::Specification.new do |spec|
   spec.name          = "rails_same_site_cookie"
   spec.version       = "1.0"
-  spec.authors       = ["Philip Schinis", "Romano Licker"]
+  spec.authors       = ["Philip Schinis"]
   spec.email         = ["p.schinis@gmail.com"]
 
   spec.summary       = %q{This gem allows you to set the SameSite=None cookie directive without breaking browsers that don't support it.}
-  spec.homepage      = "https://github.com/Promptus/rails_same_site_cookie"
+  spec.homepage      = "https://github.com/pschinis/rails_same_site_cookie"
   spec.license       = "MIT"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/Promptus/rails_same_site_cookie"
+  spec.metadata["source_code_uri"] = "https://github.com/pschinis/rails_same_site_cookie"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
