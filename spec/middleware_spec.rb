@@ -12,7 +12,7 @@ RSpec.describe RailsSameSiteCookie::Middleware do
       before(:each) do
         RailsSameSiteCookie.configure do |config|
           config.user_agent_regex = /StrongrFastrApp/
-          config.resolve_prog_bool = lambda{|env| env['HTTP_REFERER'] == "https://www.lol.com"}
+          config.env_bool_condition = lambda{|env| env['HTTP_REFERER'] == "https://www.lol.com"}
         end
       end
 
@@ -30,7 +30,7 @@ RSpec.describe RailsSameSiteCookie::Middleware do
     context "when prog bool is given" do
       it "adds SameSite=None to cookies for requests whose prog bool is true" do
         RailsSameSiteCookie.configure do |config|
-          config.resolve_prog_bool = lambda{|env| env['HTTP_REFERER'] == valid_url}
+          config.env_bool_condition = lambda{|env| env['HTTP_REFERER'] == valid_url}
         end
 
         response = request.post("/some/path", headers)
@@ -39,7 +39,7 @@ RSpec.describe RailsSameSiteCookie::Middleware do
 
       it "doesn't add SameSite=None for requests whose prog bool is false" do
         RailsSameSiteCookie.configure do |config|
-          config.resolve_prog_bool = lambda{|env| env['HTTP_REFERER'] == "https://www.nicht-lustig.com"}
+          config.env_bool_condition = lambda{|env| env['HTTP_REFERER'] == "https://www.nicht-lustig.com"}
         end
 
         response = request.post("/some/path")
@@ -53,7 +53,7 @@ RSpec.describe RailsSameSiteCookie::Middleware do
     before(:each) do
       RailsSameSiteCookie.configure do |config|
         config.user_agent_regex = nil
-        config.resolve_prog_bool = lambda{|env| true }
+        config.env_bool_condition = lambda{|env| true }
       end
     end
 

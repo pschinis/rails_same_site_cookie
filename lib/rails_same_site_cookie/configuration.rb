@@ -1,11 +1,11 @@
 module RailsSameSiteCookie
   class Configuration
     attr_accessor :user_agent_regex
-    attr_accessor :resolve_prog_bool
+    attr_accessor :env_bool_condition
 
     def initialize
       @user_agent_regex = nil
-      @resolve_prog_bool = nil
+      @env_bool_condition = nil
     end
   end
 end
