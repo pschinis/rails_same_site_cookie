@@ -4,7 +4,7 @@ require "rails_same_site_cookie/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "rails_same_site_cookie"
-  spec.version       = RailsSameSiteCookie::VERSION
+  spec.version       = "1.0"
   spec.authors       = ["Philip Schinis"]
   spec.email         = ["p.schinis@gmail.com"]
 
@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", ">= 1.17"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "byebug", ">= 0"
 
   spec.add_dependency "rack", ">= 1.5"
   spec.add_dependency "user_agent_parser", "~> 2.6"
