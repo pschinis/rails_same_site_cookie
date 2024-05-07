@@ -14,10 +14,11 @@ module RailsSameSiteCookie
 
       regex = RailsSameSiteCookie.configuration.user_agent_regex
       set_cookie = headers['Set-Cookie']
-      if (regex.nil? or regex.match(env['HTTP_USER_AGENT'])) and not (set_cookie.nil? or set_cookie.strip == '')
+      set_cookie_is_array = set_cookie.is_a?(Array)
+      if (regex.nil? or regex.match(env['HTTP_USER_AGENT'])) and not (set_cookie.nil? or (set_cookie_is_array ? set_cookie.empty? : set_cookie.strip == ''))
         parser = UserAgentChecker.new(env['HTTP_USER_AGENT'])
         if parser.send_same_site_none?
-          cookies = set_cookie.split(COOKIE_SEPARATOR)
+          cookies = set_cookie_is_array ? set_cookie : set_cookie.split(COOKIE_SEPARATOR)
           ssl = Rack::Request.new(env).ssl?
 
           cookies.each do |cookie|
@@ -34,7 +35,7 @@ module RailsSameSiteCookie
 
           end
 
-          headers['Set-Cookie'] = cookies.join(COOKIE_SEPARATOR)
+          headers['Set-Cookie'] = set_cookie_is_array ? cookies : cookies.join(COOKIE_SEPARATOR)
         end
       end
 
