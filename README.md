@@ -44,6 +44,16 @@ end
 
 Now only user agents that support SameSite=None and match the given regex string will have the directive set.
 
+### Rails 6.1+ Required Configuration
+
+Rails 6.1+ sets the SameSite value to Lax by default which overrides this gem. To make Rail 6.1 and up compatible with this gem add the following to your config file:
+```ruby
+Rails.application.configure do
+  config.action_dispatch.cookies_same_site_protection = nil
+end
+```
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
